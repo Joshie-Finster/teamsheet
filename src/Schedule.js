@@ -12,7 +12,7 @@ const Schedule = () => {
   const getGolData = async () => {
     console.log("hello");
     const response = await fetch(
-      "https://www.golcentres.co.uk/results?LeagueId=393018.html"
+      "https://www.golcentres.co.uk/results?LeagueId=393018"
     )
       .then((res) => res.text())
       .then((body) => console.log(body));
