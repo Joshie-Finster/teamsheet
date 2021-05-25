@@ -1,0 +1,36 @@
+.App {
+  background-color: #5caf71;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App-header {
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.schedule {
+  width: 50%;
+  height: 60vh;
+  padding: 1vh;
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid red;
+  background-color: rgba(218, 228, 129, 0.384);
+  
+  .table{
+    border: 1px solid orange;
+    background-color: rgba($color: #fc6060af, $alpha: 1.0);
+  }
+  .fixtures{
+    border: 1px solid yellow;
+    background-color: rgba($color: #50bfff60, $alpha: 1.0);
+  }
+}
