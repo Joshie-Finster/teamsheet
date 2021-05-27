@@ -3415,6 +3415,11 @@
     "inherits" "^2.0.1"
     "safe-buffer" "^5.0.1"
 
+"circular@~1.0.5":
+  "integrity" "sha1-fad6+Yu96c5LWzWM1Va13e0tMUk="
+  "resolved" "https://registry.npmjs.org/circular/-/circular-1.0.5.tgz"
+  "version" "1.0.5"
+
 "cjs-module-lexer@^0.6.0":
   "integrity" "sha512-uc2Vix1frTfnuzxxu1Hp4ktSvM3QaI4oXl4ZUqL1wjTu/BGki9TrCWoqLTg/drR1KwAEarXuRFCG2Svr1GxPFw=="
   "resolved" "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-0.6.0.tgz"
@@ -5041,6 +5046,21 @@
   "integrity" "sha512-j5W0//W7f8UxAn8hXVnwG8tLwdiUy4FJLcSupCg6maBYZDpyBvTApK7KyuI4bKj8KOh1r2YH+6ucuYtJv1bTZA=="
   "resolved" "https://registry.npmjs.org/execa/-/execa-4.1.0.tgz"
   "version" "4.1.0"
+  dependencies:
+    "cross-spawn" "^7.0.0"
+    "get-stream" "^5.0.0"
+    "human-signals" "^1.1.1"
+    "is-stream" "^2.0.0"
+    "merge-stream" "^2.0.0"
+    "npm-run-path" "^4.0.0"
+    "onetime" "^5.1.0"
+    "signal-exit" "^3.0.2"
+    "strip-final-newline" "^2.0.0"
+
+"execa@~4.0.2":
+  "integrity" "sha512-WFDXGHckXPWZX19t1kCsXzOpqX9LWYNqn4C+HqZlk/V0imTkzJZqf87ZBhvpHaftERYknpk0fjSylnXVlVgI0A=="
+  "resolved" "https://registry.npmjs.org/execa/-/execa-4.0.3.tgz"
+  "version" "4.0.3"
   dependencies:
     "cross-spawn" "^7.0.0"
     "get-stream" "^5.0.0"
@@ -8564,6 +8584,14 @@
   "integrity" "sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns="
   "resolved" "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
   "version" "2.1.0"
+
+"php@^1.0.1":
+  "integrity" "sha512-Zp7FM3HREPoHpw5LJD+aMIA91uvbMDb3wy8JKyvdlAiBoax3DVx2SNwCw1xULNCzYetm6oXIXvlNCzwr9FPBdA=="
+  "resolved" "https://registry.npmjs.org/php/-/php-1.0.1.tgz"
+  "version" "1.0.1"
+  dependencies:
+    "circular" "~1.0.5"
+    "execa" "~4.0.2"
 
 "picomatch@^2.0.4", "picomatch@^2.2.1", "picomatch@^2.2.2", "picomatch@^2.2.3":
   "integrity" "sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw=="

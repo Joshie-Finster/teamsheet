@@ -4,25 +4,34 @@ const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 
 const Schedule = () => {
-  const [golData, setGolData] = useState([]);
+  const [divTable, setDivTable] = useState();
+  const [fixList, setFixList] = useState();
 
   useEffect(() => {
     getGolData();
   });
+
   const getGolData = async () => {
-    console.log("hello");
-    const response = await fetch(
-      "https://www.golcentres.co.uk/results?LeagueId=393018"
-    )
-      .then((res) => res.text())
-      .then((body) => console.log(body));
+    console.log("retrieving data from Gol");
+    await fetch("http://127.0.0.1/public/scrape.php")
+      .then((res) => {
+        var obj = res.json()
+  
+        console.log(obj[0])
+
+      })
+      .then((body) => {
+        console.log("body: " + body)
+        setDivTable(body);
+      });
   };
 
   return (
     <div className="schedule">
       <div className="table">
         <h1> Division Table</h1>
-        <div></div>
+
+        <div dangerouslySetInnerHTML={{ __html: divTable }}></div>
       </div>
       <div className="fixtures">
         <h1>fixtures list</h1>
