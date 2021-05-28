@@ -9,7 +9,6 @@ function App() {
         <h1 className="title">Teamsheet</h1>
       </header>
       <Schedule/>
-      {/*<Fixtures>*/}
       {/*<Squadsheet/>*/}
       {/*<Stats/>*/}
       {/*PointlessGraphic*/}
