@@ -15,14 +15,12 @@ const Schedule = () => {
     console.log("retrieving data from Gol");
     await fetch("http://127.0.0.1/public/scrape.php")
       .then((res) => {
-        var obj = res.json()
-  
-        console.log(obj[0])
-
+        var data = res.json()
+        console.log("div table?: " + data[0])
       })
       .then((body) => {
-        console.log("body: " + body)
         setDivTable(body);
+        console.log("Div table: " + divTable);
       });
   };
 
