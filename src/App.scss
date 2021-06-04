@@ -19,13 +19,14 @@ $base-green: #5caf71;
 }
 
 .schedule {
-  min-width: 80%;
+  min-width: 85%;
 
   display: flex;
   justify-content: space-around;
-  flex-flow: wrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
 
-  background-color: rgba(white, 0.384);
+  background-color: rgba(white, 0);
   border-radius: 1vw;
 
   .divcontainer {
@@ -33,15 +34,9 @@ $base-green: #5caf71;
     margin-bottom: 1vh;
     padding: 0.5vw;
     border-radius: 1vw;
-    background-color: rgba(white, 0.5);
+    background-color: rgba(white, 0.6);
     h1 {
       text-align: center;
-    }
-    .divtable {
-      td {
-        padding: 0.5vh;
-      }
-      
     }
   }
 
@@ -50,20 +45,9 @@ $base-green: #5caf71;
     margin-bottom: 1vh;
     padding: 0.5vw;
     border-radius: 1vw;
-    background-color: rgba(white, 0.5);
+    background-color: rgba(white, .6);
 
     h1 {
-      text-align: center;
-    }
-    td {
-      padding: 0.5vh;
-    }
-
-    .fixHome,
-    .fixAway {
-      text-align: left;
-    }
-    .fixScore {
       text-align: center;
     }
   }
