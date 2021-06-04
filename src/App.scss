@@ -1,6 +1,5 @@
 $base-green: #5caf71;
 
-
 .App {
   background-color: $base-green;
   width: 100vw;
@@ -21,49 +20,51 @@ $base-green: #5caf71;
 
 .schedule {
   min-width: 80%;
-  
+
   display: flex;
   justify-content: space-around;
   flex-flow: wrap;
-  
+
   background-color: rgba(white, 0.384);
   border-radius: 1vw;
 
   .divcontainer {
-    margin-top:1vh;
+    margin-top: 1vh;
     margin-bottom: 1vh;
     padding: 0.5vw;
-    border-radius: 1vw ;
-    background-color: white;
-    h1{
+    border-radius: 1vw;
+    background-color: rgba(white, 0.5);
+    h1 {
       text-align: center;
     }
-    .divtable{
-      
-      .divTeam{
-        text-align: left;
-        
+    .divtable {
+      td {
+        padding: 0.5vh;
       }
+      
     }
   }
-
 
   .fixtures {
     margin-top: 1vh;
     margin-bottom: 1vh;
     padding: 0.5vw;
     border-radius: 1vw;
-    background-color: rgba(white, .5);
-    
-    h1{
+    background-color: rgba(white, 0.5);
+
+    h1 {
       text-align: center;
     }
-    
+    td {
+      padding: 0.5vh;
+    }
+
     .fixHome,
     .fixAway {
-      text-align: left; 
-          
+      text-align: left;
     }
-    
+    .fixScore {
+      text-align: center;
+    }
   }
 }
