@@ -4,8 +4,8 @@ const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 
 const Schedule = () => {
-  const [divTable, setDivTable] = useState();
-  const [fixList, setFixList] = useState();
+  const [divTable, setDivTable] = useState([]);
+  const [fixList, setFixList] = useState([]);
 
   useEffect(() => {
     getGolData();
@@ -17,16 +17,14 @@ const Schedule = () => {
     const data = await response.json();
     setDivTable(data.division);
     setFixList(data.schedule);
-    console.log(divTable[0]);
-    console.log(fixList[0]);
   };
 
   return (
     <div className="schedule">
-      <div className="table">
+      <div className="divcontainer">
         <h1> Division Table</h1>
 
-        <table className="div-table">
+        <table className="divtable">
           <tbody>
             <tr>
               <th>Team</th>
@@ -42,37 +40,41 @@ const Schedule = () => {
 
             {divTable.map((i) => (
               <tr>
-                <th>{i.Team}</th>
-                <th>{i.GP}</th>
-                <th>{i.W}</th>
-                <th>{i.L}</th>
-                <th>{i.D}</th>
-                <th>{i.GF}</th>
-                <th>{i.GA}</th>
-                <th>{i.GD}</th>
-                <th>{i.PTS}</th>
+                <td className="divTeam ">{i.Team}</td>
+                <td>{i.GP}</td>
+                <td>{i.W}</td>
+                <td>{i.L}</td>
+                <td>{i.D}</td>
+                <td>{i.GF}</td>
+                <td>{i.GA}</td>
+                <td>{i.GD}</td>
+                <td>{i.PTS}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <div className="fixtures">
-        <h1>fixtures list</h1>
-        <tbody className="fixture-list">
-          <tr>
+        <h1>Fixture list</h1>
+        <tbody className="fixturelist">
+          <tr className='titleRow'>
             <th>Home</th>
             <th>Score</th>
             <th>Away</th>
+            <th>Date</th>
             <th>Time/Status</th>
           </tr>
-          {fixList.map((i)=>(
-            <tr>
-            <th>{i.Home}</th>
-            <th>{i.Score}</th>
-            <th>{i.Away}</th>
-            
-          </tr>
-          ))}
+          {fixList
+            .filter((i) => i.Home == "Well Done, He's 13" | i.Away === "Well Done, He's 13")
+            .map((i) => (
+              <tr className="row">
+                <td className='fixHome'>{i.Home}</td>
+                <td className='fixScore'>{i.Score}</td>
+                <td className='fixAway'>{i.Away}</td>
+                <td className='fixDate'>{i.Date}</td>
+                <td className='fixTS'>{i["Time/Status"]}</td>
+              </tr>
+            ))}
         </tbody>
       </div>
     </div>
