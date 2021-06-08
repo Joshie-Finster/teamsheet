@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { Accordion, Container, Table, Grid, Segment } from "semantic-ui-react";
 const fetch = require("node-fetch");
@@ -21,7 +21,7 @@ const Schedule = (props) => {
     setCurrentTables(newIndex);
     console.log("click? : "+currentTables)
   };
-
+  
   return (
     <Container className="schedule">
       <Grid stackable columns={2}>
