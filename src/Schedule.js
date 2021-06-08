@@ -6,15 +6,20 @@ const fetch = require("node-fetch");
 const Schedule = (props) => {
   const [divTable] = useState(props.divTable);
   const [fixList] = useState(props.fixList);
-  const [currentTables, setCurrentTables] = useState([0, 1]);
+  const [currentTables, setCurrentTables] = useState([0,1]);
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps;
-    const  {activeIndex}  =  currentTables;
-    const newIndex = activeIndex === index ? -1 : index;
-
+   
+    const newIndex = currentTables;
+    const currentIndexPosition = currentTables.indexOf(index);
+    if (currentIndexPosition > -1) {
+      newIndex.splice(currentIndexPosition, 1);
+    } else {
+      newIndex.push(index);
+    }
     setCurrentTables(newIndex);
-    console.log(activeIndex);
+    console.log("click? : "+currentTables)
   };
 
   return (
@@ -24,13 +29,13 @@ const Schedule = (props) => {
           <Accordion fluid>
             <Segment raised className="divcontainer">
               <Accordion.Title
-                active={currentTables === 0}
+                active={currentTables.includes(0)}
                 index={0}
                 onClick={handleClick}
               >
                 <h1> Division Table</h1>
               </Accordion.Title>
-              <Accordion.Content active={currentTables === 0}>
+              <Accordion.Content active={currentTables.includes(0)}>
                 <Table
                   basic
                   collapsing
@@ -77,13 +82,13 @@ const Schedule = (props) => {
           <Accordion fluid>
             <Segment raised className="fixtures">
               <Accordion.Title
-                active={currentTables === 1}
+                active={currentTables.includes(1)}
                 index={1}
                 onClick={handleClick}
               >
                 <h1>Fixture list</h1>
               </Accordion.Title>
-              <Accordion.Content active={currentTables === 1}>
+              <Accordion.Content active={currentTables.includes(1)}>
                 <Table
                   basic
                   collapsing
