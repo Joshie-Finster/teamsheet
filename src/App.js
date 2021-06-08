@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Schedule from "./Schedule";
 import "./App.scss";
 import "semantic-ui-css/semantic.min.css";
 const fetch = require("node-fetch");
-
 
 function App() {
   const [divTable, setDivTable] = useState([]);
@@ -19,8 +18,6 @@ function App() {
     const data = await response.json();
     setDivTable(data.division);
     setFixList(data.schedule);
-    
-    
   };
 
   return (

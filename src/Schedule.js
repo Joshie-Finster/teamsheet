@@ -6,14 +6,14 @@ const fetch = require("node-fetch");
 const Schedule = (props) => {
   const [divTable] = useState(props.divTable);
   const [fixList] = useState(props.fixList);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [currentTables, setCurrentTables] = useState([0, 1]);
 
-  const handleClick = (titleProps) => {
+  const handleClick = (e, titleProps) => {
     const { index } = titleProps;
-    const { currentIndex } = activeIndex;
-    const newIndex = currentIndex === index ? -1 : index;
+    const  {activeIndex}  =  currentTables;
+    const newIndex = activeIndex === index ? -1 : index;
 
-    setActiveIndex(newIndex);
+    setCurrentTables(newIndex);
     console.log(activeIndex);
   };
 
@@ -21,16 +21,16 @@ const Schedule = (props) => {
     <Container className="schedule">
       <Grid stackable columns={2}>
         <Grid.Column>
-          <Accordion>
+          <Accordion fluid>
             <Segment raised className="divcontainer">
               <Accordion.Title
-                active={activeIndex === 0}
+                active={currentTables === 0}
                 index={0}
                 onClick={handleClick}
               >
                 <h1> Division Table</h1>
               </Accordion.Title>
-              <Accordion.Content active={activeIndex === 0}>
+              <Accordion.Content active={currentTables === 0}>
                 <Table
                   basic
                   collapsing
@@ -74,16 +74,16 @@ const Schedule = (props) => {
           </Accordion>
         </Grid.Column>
         <Grid.Column>
-          <Accordion>
+          <Accordion fluid>
             <Segment raised className="fixtures">
               <Accordion.Title
-                active={activeIndex === 1}
+                active={currentTables === 1}
                 index={1}
                 onClick={handleClick}
               >
                 <h1>Fixture list</h1>
               </Accordion.Title>
-              <Accordion.Content>
+              <Accordion.Content active={currentTables === 1}>
                 <Table
                   basic
                   collapsing
