@@ -1,78 +1,85 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.scss";
-import { Container, Table, Grid, Segment } from "semantic-ui-react";
+import { Accordion, Container, Table, Grid, Segment } from "semantic-ui-react";
 const fetch = require("node-fetch");
-const cheerio = require("cheerio");
 
-const Schedule = () => {
-  const [divTable, setDivTable] = useState([]);
-  const [fixList, setFixList] = useState([]);
+const Schedule = (props) => {
+  const [divTable] = useState(props.divTable);
+  const [fixList] = useState(props.fixList);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    getGolData();
-  }, []);
+  const handleClick = (titleProps) => {
+    const { index } = titleProps;
+    const { currentIndex } = activeIndex;
+    const newIndex = currentIndex === index ? -1 : index;
 
-  const getGolData = async () => {
-    console.log("retrieving data from Gol");
-    const response = await fetch("http://127.0.0.1/public/scrape.php");
-    const data = await response.json();
-    setDivTable(data.division);
-    setFixList(data.schedule);
+    setActiveIndex(newIndex);
+    console.log(activeIndex)
   };
 
   return (
     <Container className="schedule">
       <Grid stackable columns={2}>
         <Grid.Column>
-          <Segment className="divcontainer">
-            <h1> Division Table</h1>
+          <Accordion >
+            <Segment raised className="divcontainer">
+              <Accordion.Title
+                active={activeIndex === 0}
+                index={0}
+                onClick={handleClick}
+              >
+                <h1> Division Table</h1>
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === 0}>
+                <Table
+                  basic
+                  collapsing
+                  celled
+                  unstackable
+                  compact="very"
+                  className="divtable"
+                >
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.HeaderCell>Team</Table.HeaderCell>
+                      <Table.HeaderCell>GP</Table.HeaderCell>
+                      <Table.HeaderCell>W</Table.HeaderCell>
+                      <Table.HeaderCell>L</Table.HeaderCell>
+                      <Table.HeaderCell>D</Table.HeaderCell>
+                      <Table.HeaderCell>GF</Table.HeaderCell>
+                      <Table.HeaderCell>GA</Table.HeaderCell>
+                      <Table.HeaderCell>GD</Table.HeaderCell>
+                      <Table.HeaderCell>PTS</Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
 
-            <Table
-              collapsing
-              celled
-              unstackable
-              compact="very"
-              className="divtable"
-            >
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Team</Table.HeaderCell>
-                  <Table.HeaderCell>GP</Table.HeaderCell>
-                  <Table.HeaderCell>W</Table.HeaderCell>
-                  <Table.HeaderCell>L</Table.HeaderCell>
-                  <Table.HeaderCell>D</Table.HeaderCell>
-                  <Table.HeaderCell>GF</Table.HeaderCell>
-                  <Table.HeaderCell>GA</Table.HeaderCell>
-                  <Table.HeaderCell>GD</Table.HeaderCell>
-                  <Table.HeaderCell>PTS</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                {divTable.map((i) => (
-                  <Table.Row>
-                    <Table.Cell className="divTeam ">{i.Team}</Table.Cell>
-                    <Table.Cell>{i.GP}</Table.Cell>
-                    <Table.Cell>{i.W}</Table.Cell>
-                    <Table.Cell>{i.L}</Table.Cell>
-                    <Table.Cell>{i.D}</Table.Cell>
-                    <Table.Cell>{i.GF}</Table.Cell>
-                    <Table.Cell>{i.GA}</Table.Cell>
-                    <Table.Cell>{i.GD}</Table.Cell>
-                    <Table.Cell>{i.PTS}</Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </Segment>
+                  <Table.Body>
+                    {divTable.map((i) => (
+                      <Table.Row>
+                        <Table.Cell className="divTeam ">{i.Team}</Table.Cell>
+                        <Table.Cell>{i.GP}</Table.Cell>
+                        <Table.Cell>{i.W}</Table.Cell>
+                        <Table.Cell>{i.L}</Table.Cell>
+                        <Table.Cell>{i.D}</Table.Cell>
+                        <Table.Cell>{i.GF}</Table.Cell>
+                        <Table.Cell>{i.GA}</Table.Cell>
+                        <Table.Cell>{i.GD}</Table.Cell>
+                        <Table.Cell>{i.PTS}</Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </Accordion.Content>
+            </Segment>
+          </Accordion>
         </Grid.Column>
         <Grid.Column>
-          <Segment className="fixtures">
+          <Segment raised className="fixtures">
             <h1>Fixture list</h1>
             <Table
+              basic
               collapsing
               striped
-              size="small"
               compact="very"
               unstackable
               className="fixturelist"
@@ -89,7 +96,7 @@ const Schedule = () => {
                 {fixList
                   .filter(
                     (i) =>
-                      (i.Home == "Well Done, He's 13") |
+                      (i.Home === "Well Done, He's 13") |
                       (i.Away === "Well Done, He's 13")
                   )
                   .map((i) => (
