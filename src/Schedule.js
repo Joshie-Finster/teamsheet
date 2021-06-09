@@ -19,14 +19,14 @@ const Schedule = (props) => {
       newIndex.push(index);
     }
     setCurrentTables(newIndex);
-    console.log("click? : "+currentTables)
+    console.log("click? : "+ currentTables)
   };
   
   return (
     <Container className="schedule">
       <Grid stackable columns={2}>
         <Grid.Column>
-          <Accordion fluid>
+          <Accordion exclusive={false} fluid>
             <Segment raised className="divcontainer">
               <Accordion.Title
                 active={currentTables.includes(0)}
@@ -79,7 +79,7 @@ const Schedule = (props) => {
           </Accordion>
         </Grid.Column>
         <Grid.Column>
-          <Accordion fluid>
+          <Accordion exclusive={false} fluid>
             <Segment raised className="fixtures">
               <Accordion.Title
                 active={currentTables.includes(1)}
