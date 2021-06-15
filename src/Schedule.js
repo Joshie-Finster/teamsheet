@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./App.scss";
 import { Accordion, Container, Table, Grid, Segment } from "semantic-ui-react";
-const fetch = require("node-fetch");
+
 
 const Schedule = (props) => {
-  const [divTable] = useState(props.divTable);
-  const [fixList] = useState(props.fixList);
-  const [currentTables, setCurrentTables] = useState([0,1]);
+  const [currentTables, setCurrentTables] = useState([0, 1]);
 
-  const handleClick = (e, titleProps) => {
-    const { index } = titleProps;
-   
-    const newIndex = currentTables;
-    const currentIndexPosition = currentTables.indexOf(index);
+  const handleClick = (titleProps) => {
+    const newIndex = [...currentTables];
+    const currentIndexPosition = currentTables.indexOf(titleProps);
     if (currentIndexPosition > -1) {
       newIndex.splice(currentIndexPosition, 1);
     } else {
-      newIndex.push(index);
+      newIndex.push(titleProps);
     }
     setCurrentTables(newIndex);
-    console.log("click? : "+ currentTables)
+    
   };
-  
+
   return (
     <Container className="schedule">
       <Grid stackable columns={2}>
@@ -31,7 +27,7 @@ const Schedule = (props) => {
               <Accordion.Title
                 active={currentTables.includes(0)}
                 index={0}
-                onClick={handleClick}
+                onClick={() => handleClick(0)}
               >
                 <h1> Division Table</h1>
               </Accordion.Title>
@@ -59,7 +55,7 @@ const Schedule = (props) => {
                   </Table.Header>
 
                   <Table.Body>
-                    {divTable.map((i) => (
+                    {props.divTable.map((i) => (
                       <Table.Row>
                         <Table.Cell className="divTeam ">{i.Team}</Table.Cell>
                         <Table.Cell>{i.GP}</Table.Cell>
@@ -84,7 +80,7 @@ const Schedule = (props) => {
               <Accordion.Title
                 active={currentTables.includes(1)}
                 index={1}
-                onClick={handleClick}
+                onClick={() => handleClick(1)}
               >
                 <h1>Fixture list</h1>
               </Accordion.Title>
@@ -97,16 +93,18 @@ const Schedule = (props) => {
                   unstackable
                   className="fixturelist"
                 >
-                  <Table.Row className="titleRow">
-                    <Table.HeaderCell>Home</Table.HeaderCell>
-                    <Table.HeaderCell>Score</Table.HeaderCell>
-                    <Table.HeaderCell>Away</Table.HeaderCell>
-                    <Table.HeaderCell>Date</Table.HeaderCell>
-                    <Table.HeaderCell>Time/Status</Table.HeaderCell>
-                  </Table.Row>
+                  <Table.Header>
+                    <Table.Row className="titleRow">
+                      <Table.HeaderCell>Home</Table.HeaderCell>
+                      <Table.HeaderCell>Score</Table.HeaderCell>
+                      <Table.HeaderCell>Away</Table.HeaderCell>
+                      <Table.HeaderCell>Date</Table.HeaderCell>
+                      <Table.HeaderCell>Time/Status</Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
 
                   <Table.Body>
-                    {fixList
+                    {props.fixList
                       .filter(
                         (i) =>
                           (i.Home === "Well Done, He's 13") |
