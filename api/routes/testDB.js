@@ -16,20 +16,55 @@ let uri =
   process.env.MONGO_USER +
   ":" +
   process.env.MONGO_PW +
-  "@teamsheet.pohxj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "@teamsheet.pohxj.mongodb.net/Schedule?retryWrites=true&w=majority";
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
 
+const playerSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  position: {
+    type: String,
+    required: true,
+  },
+});
+//methods must be added to a schema before compiling it to a model.
+playerSchema.methods.speak = function () {
+  const greeting = this.name
+    ? "I am " + this.name + " and I play " + this.position
+    : "Player not found";
+  console.log(greeting);
+};
+const Player = mongoose.model("Player", playerSchema);
+const testPlayer = new Player({
+  name: "Test Josh",
+  position: "Midfield test",
+});
 // If there is a connection error send an error message
 
-mongoose.connection.on("error", (error) => {
+db.on("error", (error) => {
   console.log("Database connection error:", error);
   databaseConnection = "Error connecting to Database";
 });
 // If connected to MongoDB send a success message
-mongoose.connection.once("open", () => {
+db.once("open", () => {
   console.log("Connected to Database!");
   databaseConnection = "Connected to Database";
+  Player.find({ name: /^Test/ }, function (err, players) {
+    if (err) return console.error(err);
+    console.log(players);
+  });
+
+  console.log(testPlayer.name);
 });
 
+router.get("/allPlayers", (req, res) => {
+  Player.find(function(err,players){
+    if(err) return console.error(err);
+    res.json(players)
+  })
+});
 module.exports = router;

@@ -1,10 +1,9 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "./App.scss";
 import { Accordion, Container, Table, Grid, Segment } from "semantic-ui-react";
 
-
 const Schedule = (props) => {
-  const [currentTables, setCurrentTables] = useState([0, 1]);
+  const [currentTables, setCurrentTables] = useState([]);
 
   const handleClick = (titleProps) => {
     const newIndex = [...currentTables];
@@ -15,7 +14,6 @@ const Schedule = (props) => {
       newIndex.push(titleProps);
     }
     setCurrentTables(newIndex);
-    
   };
 
   return (
@@ -33,9 +31,8 @@ const Schedule = (props) => {
               </Accordion.Title>
               <Accordion.Content active={currentTables.includes(0)}>
                 <Table
-                  basic
+                  basic="very"
                   collapsing
-                  celled
                   unstackable
                   compact="very"
                   className="divtable"
@@ -99,7 +96,6 @@ const Schedule = (props) => {
                       <Table.HeaderCell>Score</Table.HeaderCell>
                       <Table.HeaderCell>Away</Table.HeaderCell>
                       <Table.HeaderCell>Date</Table.HeaderCell>
-                      <Table.HeaderCell>Time/Status</Table.HeaderCell>
                     </Table.Row>
                   </Table.Header>
 
@@ -117,8 +113,9 @@ const Schedule = (props) => {
                             {i.Score}
                           </Table.Cell>
                           <Table.Cell className="fixAway">{i.Away}</Table.Cell>
-                          <Table.Cell className="fixDate">{i.Date}</Table.Cell>
-                          <Table.Cell className="fixTS">
+                          <Table.Cell className="fixDate">
+                            {i.Date}
+                            <br />
                             {i["Time/Status"]}
                           </Table.Cell>
                         </Table.Row>

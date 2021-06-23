@@ -4,7 +4,7 @@ $base-green: #5caf71;
   background-color: $base-green;
   min-width: 100vw;
   min-height: 100vh;
-  overflow:auto;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,13 +12,22 @@ $base-green: #5caf71;
 
 .App-header {
   width: 95vw;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
+@mixin basic-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  padding: 0.5vw;
+  border-radius: 1vw;
+  background-color: rgba(white, 0.4) !important;
+}
 .schedule {
   min-width: 85%;
   display: flex;
@@ -30,22 +39,14 @@ $base-green: #5caf71;
   border-radius: 1vw;
 
   .divcontainer {
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    padding: 0.5vw;
-    border-radius: 1vw;
-    background-color: rgba( white, .4) !important;
+    @include basic-container;
     h1 {
       text-align: center;
     }
   }
 
   .fixtures {
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    padding: 0.5vw;
-    border-radius: 1vw;
-    background-color: rgba(white, 0.4) !important;
+    @include basic-container;
 
     h1 {
       text-align: center;
