@@ -1,0 +1,16 @@
+@mixin basic-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    padding: 0.5vw;
+    border-radius: 1vw;
+    background-color: rgba(white, 0.4) !important;
+  }
+
+.squadsheet {
+  @include basic-container;
+  border: 1px solid red;
+}
