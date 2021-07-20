@@ -8,6 +8,7 @@ import {
   Grid,
   Form,
   Message,
+  Transition,
 } from "semantic-ui-react";
 
 const positions = [
@@ -22,6 +23,8 @@ const Squadsheet = (props) => {
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [apiRes, setApiRes] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     setName("");
@@ -42,21 +45,29 @@ const Squadsheet = (props) => {
       }),
     })
       .then((res) => res.text())
-      .then((res) => setApiRes(res));
+      .then((res) => setApiRes(res))
+      .then(setToggle(!toggle));
 
     setName("");
     setPosition("");
   };
+
   return (
     <Container fluid className="squadsheet">
       <Segment>
         <Form onSubmit={handleSubmit}>
-          <Message
-            negative={apiRes === "Player already in database. Choose new name"}
-            positive={apiRes === "New Player Added"}
-          >
-            <Message.Header>{apiRes}</Message.Header>
-          </Message>
+          <Transition duration={1000} visible={toggle} onComplete={console.log('transition')}>
+            <Message
+              compact
+              negative={
+                apiRes === "Player already in database. Choose new name"
+              }
+              positive={apiRes === "New Player Added"}
+            >
+              <Message.Header>{apiRes}</Message.Header>
+            </Message>
+          </Transition>
+
           <Form.Group inline fluid>
             <Form.Input
               required
@@ -82,9 +93,6 @@ const Squadsheet = (props) => {
             </Form.Button>
           </Form.Group>
         </Form>
-      </Segment>
-      <Segment>
-        <List></List>
       </Segment>
     </Container>
   );

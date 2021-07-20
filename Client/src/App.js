@@ -3,7 +3,7 @@ import Schedule from "./Schedule";
 import Squadsheet from "./Squadsheet";
 import "./App.scss";
 import "semantic-ui-css/semantic.min.css";
-import { Popup, Button, Grid, Icon } from "semantic-ui-react";
+import { Accordion, Popup, Button, Grid, Icon } from "semantic-ui-react";
 const fetch = require("node-fetch");
 
 function App() {
