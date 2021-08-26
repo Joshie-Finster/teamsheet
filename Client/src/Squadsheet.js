@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Squadsheet.scss";
+import styled, { keyframes } from "styled-components";
+import { bounce } from "react-animations";
 import {
   Accordion,
   List,
@@ -18,12 +20,11 @@ const positions = [
   { key: "g", text: "Goalie", value: "goalkeeper" },
   { key: "b", text: "Bench/Sub/Backup", value: "sub" },
 ];
-
 const Squadsheet = (props) => {
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [apiRes, setApiRes] = useState("");
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
@@ -46,7 +47,13 @@ const Squadsheet = (props) => {
     })
       .then((res) => res.text())
       .then((res) => setApiRes(res))
-      .then(setToggle(!toggle));
+      .then(() => {
+        if (apiRes >= 0) {
+          return setIsVisible(true);
+        } else {
+          return setIsVisible(false);
+        }
+      });
 
     setName("");
     setPosition("");
@@ -56,18 +63,22 @@ const Squadsheet = (props) => {
     <Container fluid className="squadsheet">
       <Segment>
         <Form onSubmit={handleSubmit}>
-          <Transition duration={1000} visible={toggle} onComplete={console.log('transition')}>
-            <Message
-              compact
-              negative={
-                apiRes === "Player already in database. Choose new name"
-              }
-              positive={apiRes === "New Player Added"}
-            >
-              <Message.Header>{apiRes}</Message.Header>
-            </Message>
+          <Transition
+            visible={isVisible}
+            animation={"swing down"}
+            duration={500}
+          >
+            
+              <Message
+                compact
+                negative={
+                  apiRes === "Player already in database. Choose new name"
+                }
+                positive={apiRes === "New Player Added"}
+              >
+                <Message.Header>{apiRes}</Message.Header>
+              </Message>
           </Transition>
-
           <Form.Group inline fluid>
             <Form.Input
               required
@@ -84,6 +95,7 @@ const Squadsheet = (props) => {
               onChange={(e, { value }) => setPosition(value)}
               value={position}
             />
+
             <Form.Button
               color="blue"
               disabled={!name || !position}
